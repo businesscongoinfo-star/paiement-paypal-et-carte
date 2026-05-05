@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Paiement - Muana Bitinda Livraison</title>
+
+<!-- PayPal -->
+<script src="https://www.paypal.com/sdk/js?client-id=BAAeFgWxPd3Kr5fnTTvgQc1VqMVyPrEY-MrJ9NeRP8kfN1y1rnbeJWFVdOWd4B5wX7xhDbQhT8OUhjj42Y&components=hosted-buttons&currency=USD"></script>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.mobile {
+  background: green;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Paiement sécurisé</h2>
+  <p><b>Muana Bitinda Livraison</b></p>
+
+  <input type="text" id="nom" placeholder="Votre nom">
+  <input type="text" id="numero" placeholder="Numéro WhatsApp">
+  <input type="number" id="montant" placeholder="Montant ($)">
+  <textarea id="message" placeholder="Détail / Référence"></textarea>
+
+  <!-- PayPal -->
+  <div id="paypal-container-RDRK5N4FW6AB8"></div>
+
+  <!-- Mobile Money -->
+  <button class="mobile" onclick="payerMobile()">
+    📱 Payer par Mobile Money (MTN / Airtel)
+  </button>
+
+  <p style="font-size:12px; margin-top:10px;">
+    Après paiement, envoyez la preuve via WhatsApp
+  </p>
+</div>
+
+<script>
+// PayPal bouton
+paypal.HostedButtons({
+  hostedButtonId: "RDRK5N4FW6AB8"
+}).render("#paypal-container-RDRK5N4FW6AB8");
+
+// Mobile Money → WhatsApp
+function payerMobile() {
+  let nom = document.getElementById("nom").value;
+  let numero = document.getElementById("numero").value;
+  let montant = document.getElementById("montant").value;
+  let message = document.getElementById("message").value;
+
+  let texte = "Bonjour, je veux payer par Mobile Money.\n\n" +
+              "Nom: " + nom + "\n" +
+              "Numéro: " + numero + "\n" +
+              "Montant: " + montant + "\n" +
+              "Détail: " + message;
+
+  let lien = "https://wa.me/242066480038?text=" + encodeURIComponent(texte);
+
+  window.open(lien, "_blank");
+}
+</script>
+
+</body>
+</html>
